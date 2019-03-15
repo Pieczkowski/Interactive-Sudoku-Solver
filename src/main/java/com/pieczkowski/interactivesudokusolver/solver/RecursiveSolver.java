@@ -28,4 +28,8 @@ public class RecursiveSolver implements Solver {
         return true;
     }
 
+    private boolean isMoveValid(Sudoku sudoku, Cell cell, int rowIndex, int columnIndex) {
+        return checkRow(sudoku, cell, rowIndex) && checkColumn(sudoku, cell, columnIndex) && checkSquare(sudoku, cell, rowIndex, columnIndex);
+    }
+
 }
