@@ -32,4 +32,52 @@ public class RecursiveSolver implements Solver {
         return checkRow(sudoku, cell, rowIndex) && checkColumn(sudoku, cell, columnIndex) && checkSquare(sudoku, cell, rowIndex, columnIndex);
     }
 
+
+    private boolean checkRow(Sudoku sudoku, Cell changedCell, int rowIndex) {
+        for (Cell cellInRow : sudoku.getRow(rowIndex)){
+            if (checkValueDuplication(cellInRow, changedCell)){
+                return false;
+            }
+        }
+        return true;
+    }
+
+    private boolean checkSquare(Sudoku sudoku, Cell changedCell, int rowIndex, int columnIndex) {
+        int squareRowIndexStart = (rowIndex/DIMENSION_IN_SQUARE) * DIMENSION_IN_SQUARE;
+
+        for (int squareRowIndex = squareRowIndexStart; squareRowIndex < squareRowIndexStart + DIMENSION_IN_SQUARE; squareRowIndex++) {
+
+            if (squareRowIndex == rowIndex) continue; // no point in checking cells that were checked in other methods
+
+            if (compareCellsInColumns(sudoku, changedCell, columnIndex, squareRowIndex)) return false;
+        }
+        return true;
+    }
+
+    private boolean compareCellsInColumns(Sudoku sudoku, Cell changedCell, int columnIndex, int squareRowIndex) {
+        int squareColumnIndexStart = (columnIndex/DIMENSION_IN_SQUARE) * DIMENSION_IN_SQUARE;
+        for (int squareColumnIndex = squareColumnIndexStart; squareColumnIndex < squareColumnIndexStart + DIMENSION_IN_SQUARE; squareColumnIndex++) {
+
+            if (squareColumnIndex == columnIndex) continue;
+
+            if (checkValueDuplication(sudoku.getCell(squareRowIndex, squareColumnIndex), changedCell))
+                return true;
+        }
+        return false;
+    }
+
+    private boolean checkColumn(Sudoku sudoku, Cell changedCell, int columnIndex) {
+        for (int rowIndex = STARTING_INDEX; rowIndex < BOARD_SIZE; rowIndex++) {
+            if (checkValueDuplication(sudoku.getCell(rowIndex, columnIndex), changedCell)){
+                return false;
+            }
+        }
+        return true;
+    }
+
+    private boolean checkValueDuplication(Cell cell, Cell cellChanged){
+        if (cell == cellChanged) {
+            return false;
+        } else return cell.getValue() == cellChanged.getValue();
+    }
 }
