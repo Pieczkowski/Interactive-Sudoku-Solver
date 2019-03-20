@@ -28,12 +28,12 @@ public class RecursiveSolver implements Solver {
         return true;
     }
 
-    private boolean isMoveValid(Sudoku sudoku, Cell cell, int rowIndex, int columnIndex) {
+    public boolean isMoveValid(Sudoku sudoku, Cell cell, int rowIndex, int columnIndex) {
         return checkRow(sudoku, cell, rowIndex) && checkColumn(sudoku, cell, columnIndex) && checkSquare(sudoku, cell, rowIndex, columnIndex);
     }
 
 
-    private boolean checkRow(Sudoku sudoku, Cell changedCell, int rowIndex) {
+    public boolean checkRow(Sudoku sudoku, Cell changedCell, int rowIndex) {
         for (Cell cellInRow : sudoku.getRow(rowIndex)){
             if (checkValueDuplication(cellInRow, changedCell)){
                 return false;
@@ -42,7 +42,7 @@ public class RecursiveSolver implements Solver {
         return true;
     }
 
-    private boolean checkSquare(Sudoku sudoku, Cell changedCell, int rowIndex, int columnIndex) {
+    public boolean checkSquare(Sudoku sudoku, Cell changedCell, int rowIndex, int columnIndex) {
         int squareRowIndexStart = (rowIndex/DIMENSION_IN_SQUARE) * DIMENSION_IN_SQUARE;
 
         for (int squareRowIndex = squareRowIndexStart; squareRowIndex < squareRowIndexStart + DIMENSION_IN_SQUARE; squareRowIndex++) {
@@ -66,7 +66,7 @@ public class RecursiveSolver implements Solver {
         return false;
     }
 
-    private boolean checkColumn(Sudoku sudoku, Cell changedCell, int columnIndex) {
+    public boolean checkColumn(Sudoku sudoku, Cell changedCell, int columnIndex) {
         for (int rowIndex = STARTING_INDEX; rowIndex < BOARD_SIZE; rowIndex++) {
             if (checkValueDuplication(sudoku.getCell(rowIndex, columnIndex), changedCell)){
                 return false;
