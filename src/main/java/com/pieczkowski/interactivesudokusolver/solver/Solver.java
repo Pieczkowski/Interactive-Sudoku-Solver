@@ -11,6 +11,6 @@ public interface Solver {
     boolean solve(Sudoku sudoku);
     boolean isMoveValid(Sudoku sudoku, Cell cell, int rowIndex, int columnIndex);
     boolean checkSquare(Sudoku sudoku, Cell changedCell, int rowIndex, int columnIndex);
-    boolean checkRow(Sudoku sudoku, Cell changedCell, int columnIndex);
+    boolean checkRow(Sudoku sudoku, Cell changedCell, int rowIndex);
     boolean checkColumn(Sudoku sudoku, Cell changedCell, int columnIndex);
 }
