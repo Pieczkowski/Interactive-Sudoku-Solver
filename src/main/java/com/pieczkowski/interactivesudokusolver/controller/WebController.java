@@ -25,4 +25,19 @@ public class WebController {
         return form;
     }
 
+    @GetMapping("/solve")
+    public String getForm(){
+        return "emptySudoku";
+    }
+
+    @PostMapping("/check")
+    @ResponseBody
+    public Boolean check(@RequestBody Sudoku form){
+        return solver.solve(form);
+    }
+
+    @GetMapping("/about")
+    public String sendAboutPage(){
+        return "about";
+    }
 }
